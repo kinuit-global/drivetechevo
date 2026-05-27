@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriveTech EVO | European Luxury Car Specialists</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Orbitron:wght@400..900&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Onest', 'sans-serif'],
+            orbitron: ['Orbitron', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0A0A0A;
+      color: #F6F6F6;
+      overflow-x: hidden;
+      font-family: 'Onest', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Custom premium scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B0B0B;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #222;
+      border-radius: 4px;
+      border: 2px solid #0B0B0B;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #EF3A37;
+    }
+
+    /* Scroll reveal transitions */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 100ms;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 200ms;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 300ms;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 400ms;
+    }
+
+    /* Elite text effect */
+    .text-glow {
+      text-shadow: 0 0 15px rgba(239, 58, 55, 0.2);
+    }
+
+    .red-glow-hover {
+      transition: all 0.4s ease;
+    }
+
+    .red-glow-hover:hover {
+      box-shadow: 0 0 30px rgba(239, 58, 55, 0.25);
+      border-color: rgba(239, 58, 55, 0.4);
+    }
+
+    /* Glassmorphic panel effect */
+    .glass-card {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(239, 58, 55, 0.3);
+      transform: translateY(-6px);
+    }
+
+    /* Elegant buttons */
+    .btn-premium {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .btn-premium::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: all 0.6s ease;
+      z-index: -1;
+    }
+
+    .btn-premium:hover::before {
+      left: 100%;
+    }
+
+    /* Marquee fade effect at edges */
+    .marquee {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    .marquee::before,
+    .marquee::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .marquee::before {
+      left: 0;
+      background: linear-gradient(to right, #0A0A0A 0%, transparent 100%);
+    }
+
+    .marquee::after {
+      right: 0;
+      background: linear-gradient(to left, #0A0A0A 0%, transparent 100%);
+    }
+
+    .marquee-content {
+      display: flex;
+      width: max-content;
+      animation: scroll 30s linear infinite;
+    }
+
+    .marquee-content img {
+      height: 55px;
+      margin: 0 45px;
+      filter: grayscale(100%) brightness(0.85);
+      opacity: 0.65;
+      transition: all 0.3s ease;
+    }
+
+    .marquee-content img:hover {
+      filter: grayscale(0%) brightness(1);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .marquee-content img.invert-white {
+      filter: invert(1) brightness(1.5);
+    }
+
+    .marquee-content img.invert-white:hover {
+      filter: invert(1) brightness(2);
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Dynamic scrolling mouse indicator */
+    .mouse-scroll {
+      width: 24px;
+      height: 40px;
+      border: 2px solid rgba(246, 246, 246, 0.25);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .mouse-scroll::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 4px;
+      height: 8px;
+      background: #EF3A37;
+      margin-left: -2px;
+      border-radius: 2px;
+      animation: scroll-dot 2.2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
+    }
+
+    @keyframes scroll-dot {
+      0% {
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* WhatsApp Pulse ring */
+    .whatsapp-pulse::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      border: 2px solid #25D366;
+      animation: pulse-ring 2.4s linear infinite;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* Inverted premium dark map representation */
+    .dark-map {
+      filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%);
+      transition: all 0.5s ease;
+    }
+
+    .dark-map:hover {
+      filter: invert(90%) hue-rotate(180deg) brightness(100%) contrast(95%);
+    }
+
+    .glass {
+      background: rgba(10, 10, 10, 0.75);
+      backdrop-filter: blur(16px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header
+    class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 glass border border-white/10 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+    <div class="px-6 py-4 md:py-5 flex items-center justify-between">
+
+      <!-- LOGO -->
+      <a href="#"
+        class="font-orbitron text-2xl md:text-3xl font-extrabold tracking-tight hover:scale-[1.02] transition-transform duration-300">
+        DriveTech<span class="text-[#EF3A37] text-glow"> EVO</span>
+      </a>
+
+      <!-- MENU & CTA -->
+      <div class="flex items-center gap-8">
+        <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.2em] font-semibold text-white/70">
+          <a href="#home" class="relative py-1 hover:text-white transition-colors duration-300 group">
+            Home
+            <span
+              class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#about" class="relative py-1 hover:text-white transition-colors duration-300 group">
+            About
+            <span
+              class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#services" class="relative py-1 hover:text-white transition-colors duration-300 group">
+            Services
+            <span
+              class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#contact" class="relative py-1 hover:text-white transition-colors duration-300 group">
+            Contact
+            <span
+              class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn"
+          class="md:hidden flex items-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white/90 hover:text-[#EF3A37] hover:border-[#EF3A37]/35 focus:outline-none transition-all duration-300 px-3 py-1.5 rounded-xl text-xs uppercase tracking-wider font-extrabold"
+          aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MOBILE MENU PANEL -->
+  <div id="mobile-menu"
+    class="fixed inset-0 z-50 bg-black/98 backdrop-filter backdrop-blur-2xl translate-x-full transition-transform duration-500 md:hidden flex flex-col justify-center items-center px-6">
+    <!-- Close Button -->
+    <button id="mobile-menu-close"
+      class="absolute top-8 right-8 text-white/60 hover:text-[#EF3A37] transition duration-300 focus:outline-none p-3"
+      aria-label="Close Menu">
+      <i class="fa-solid fa-xmark text-2xl"></i>
+    </button>
+
+    <!-- Logo in Menu -->
+    <div class="mb-12">
+      <span class="font-orbitron text-3xl font-extrabold tracking-tight">
+        DriveTech<span class="text-[#EF3A37] text-glow">EVO</span>
+      </span>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex flex-col items-center gap-6 text-xl uppercase tracking-[0.25em] font-extrabold text-white/80">
+      <a href="#home" class="mobile-nav-link hover:text-[#EF3A37] transition duration-300 py-2 relative group">
+        Home
+        <span
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-1/2"></span>
+      </a>
+      <a href="#about" class="mobile-nav-link hover:text-[#EF3A37] transition duration-300 py-2 relative group">
+        About
+        <span
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-1/2"></span>
+      </a>
+      <a href="#services" class="mobile-nav-link hover:text-[#EF3A37] transition duration-300 py-2 relative group">
+        Services
+        <span
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-1/2"></span>
+      </a>
+      <a href="#contact" class="mobile-nav-link hover:text-[#EF3A37] transition duration-300 py-2 relative group">
+        Contact
+        <span
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#EF3A37] transition-all duration-300 group-hover:w-1/2"></span>
+      </a>
+    </nav>
+
+    <!-- Quick Concierge Contacts -->
+    <div class="mt-16 w-full max-w-xs border-t border-white/10 pt-10 text-center">
+      <p class="text-[10px] uppercase tracking-[0.25em] text-white/40 font-bold mb-6">Concierge Quick Link</p>
+      <div class="flex flex-col gap-4">
+        <a href="https://wa.me/910000000000" target="_blank"
+          class="mobile-nav-link flex items-center justify-center gap-3 bg-[#EF3A37] hover:bg-[#d82d2a] text-white uppercase tracking-widest text-xs font-extrabold py-4 px-6 rounded-xl transition duration-300 shadow-[0_0_20px_rgba(239,58,55,0.25)]">
+          <i class="fab fa-whatsapp text-sm"></i>
+          <span>WhatsApp Chat</span>
+        </a>
+        <a href="tel:+910000000000"
+          class="mobile-nav-link flex items-center justify-center gap-3 border border-white/15 bg-white/5 hover:bg-white/10 text-white uppercase tracking-widest text-xs font-extrabold py-4 px-6 rounded-xl transition duration-300">
+          <i class="fas fa-phone text-xs"></i>
+          <span>Call Concierge</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="home" class="relative w-full overflow-hidden">
+
+    <!-- DESKTOP VIDEO -->
+    <div class="hidden md:block w-full aspect-video">
+      <iframe class="w-full h-full"
+        src="https://www.youtube.com/embed/Uzk-po3mAHA?autoplay=1&mute=1&controls=0&loop=1&playlist=Uzk-po3mAHA&modestbranding=1&rel=0&start=94"
+        title="DriveTech EVO" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- MOBILE VIDEO -->
+    <div class="block md:hidden w-full h-screen relative overflow-hidden">
+      <iframe
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100vh] pointer-events-none"
+        src="https://www.youtube.com/embed/Uzk-po3mAHA?autoplay=1&mute=1&controls=0&loop=1&playlist=Uzk-po3mAHA&modestbranding=1&rel=0&start=94"
+        title="DriveTech EVO Mobile" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-black/60 to-black/35 flex items-center z-10">
+      <div class="max-w-7xl mx-auto px-6 w-full pt-28 md:pt-40 pb-20 md:pb-24">
+
+        <div class="max-w-3xl">
+          <p
+            class="inline-block px-4 py-1.5 rounded-full bg-white/30 border border-white/45 text-white uppercase tracking-[0.25em] mb-6 text-[10px] md:text-xs font-extrabold text-glow reveal reveal-delay-1">
+            European Luxury Car Specialists
+          </p>
+
+          <h1
+            class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6 uppercase tracking-tight reveal reveal-delay-2 text-[#EF3A37]">
+            Precision <br />
+            Engineering <br />
+            <span class="text-white/40 font-light lowercase font-sans normal-case tracking-normal">for European
+              machines</span>
+          </h1>
+
+          <p class="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl font-light mb-0 reveal reveal-delay-3">
+            DriveTech EVO delivers bespoke diagnostics, master-level servicing, performance upgrades, and meticulous
+            detailing for European luxury marques. Built on transparency, precision, and uncompromising craftsmanship.
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- Mouse Scroll Indicator -->
+      <div
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none reveal reveal-delay-4 hidden md:flex">
+        <div class="mouse-scroll"></div>
+        <span class="text-[9px] uppercase tracking-[0.3em] text-white/40 font-semibold">Scroll</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-28 px-6 relative overflow-hidden">
+    <!-- Subtle Background Element -->
+    <div
+      class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EF3A37]/5 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
+
+      <div class="reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="h-[1px] w-8 bg-[#EF3A37]"></span>
+          <p class="text-[#EF3A37] uppercase tracking-[0.3em] text-xs font-extrabold">
+            About DriveTech EVO
+          </p>
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-8 leading-[1.1] uppercase tracking-tight text-white">
+          Specialized European <br />Automotive Care
+        </h2>
+
+        <p class="text-white/70 leading-8 text-base font-light">
+          DriveTech EVO is dedicated to servicing and maintaining European luxury
+          and performance vehicles with precision-driven workmanship and
+          transparent customer communication.
+        </p>
+
+        <p class="text-white/70 leading-8 text-base font-light mt-6">
+          From diagnostics and mechanical repairs to premium detailing and
+          aesthetics, every vehicle receives meticulous attention using
+          professional-grade tools, modern facilities, and experienced expertise.
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-3 gap-6 mt-12 border-t border-white/10 pt-8">
+          <div>
+            <p class="text-3xl font-extrabold text-[#EF3A37] tracking-tight">15+</p>
+            <p class="text-[10px] uppercase tracking-[0.15em] text-white/50 mt-1 font-semibold">Years Master Techs</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-[#EF3A37] tracking-tight">100%</p>
+            <p class="text-[10px] uppercase tracking-[0.15em] text-white/50 mt-1 font-semibold">Genuine OEM Parts</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-[#EF3A37] tracking-tight">OEM</p>
+            <p class="text-[10px] uppercase tracking-[0.15em] text-white/50 mt-1 font-semibold">Diagnostic Tools</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 relative group">
+        <!-- Glow Backing -->
+        <div
+          class="absolute -inset-2 bg-gradient-to-r from-[#EF3A37]/20 to-[#EF3A37]/5 rounded-2xl blur-2xl opacity-40 group-hover:opacity-60 transition duration-700 pointer-events-none">
+        </div>
+
+        <!-- Image Box -->
+        <div class="relative border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop"
+            class="w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Luxury Garage" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-28 px-6 bg-gradient-to-b from-[#0A0A0A] to-[#0E0E0E] relative overflow-hidden">
+    <!-- Soft background glow -->
+    <div
+      class="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#EF3A37]/3 rounded-full blur-[140px] pointer-events-none">
+    </div>
+
+    <div class="max-w-7xl mx-auto relative">
+
+      <div class="text-center mb-20 reveal">
+        <p class="text-[#EF3A37] uppercase tracking-[0.3em] text-xs font-extrabold mb-4 text-glow">
+          Our Services
+        </p>
+
+        <h2 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white">
+          Bespoke Automotive Solutions
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- CARD 1: FLUID ENGINEERING -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-1">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-droplet text-xl text-[#EF3A37] transition-transform duration-500 group-hover:scale-110"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              Fluid Engineering
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Complete lubrication & fluid dynamics. From premium synthetic engine oil and transmission fluids to brake
+              and cooling system flushes using factory-specified lubricants.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Standard</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">OEM Approved
+              Fluids</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: 360° DIAGNOSTICS -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-2">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-microchip text-xl text-[#EF3A37] transition-transform duration-500 group-hover:rotate-12"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              360° Diagnostics
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Comprehensive scan of onboard computers, live sensor data analysis, electrical troubleshooting, and module
+              reprogramming using dealer-level diagnostic interfaces.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Equipment</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">Dealer-Level
+              Software</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: TECHNICAL REPAIRS -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-3">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-gears text-xl text-[#EF3A37] transition-transform duration-500 group-hover:rotate-45"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              Technical Repairs
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Precision mechanical rebuilding and repair. Expert solutions for engines, transmissions, high-performance
+              brakes, steering systems, and complex suspension components.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Technicians</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">Master Level
+              Certs</span>
+          </div>
+        </div>
+
+        <!-- CARD 4: PRO DETAILING -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-1">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-wand-magic-sparkles text-xl text-[#EF3A37] transition-transform duration-500 group-hover:translate-y-[-2px]"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              Pro Detailing
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Bespoke aesthetic restoration. Multi-stage paint correction, high-end interior rejuvenation, leather
+              feeding, engine bay cleaning, and premium ceramic coatings.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Finish</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">Concierge
+              Quality</span>
+          </div>
+        </div>
+
+        <!-- CARD 5: PAINT PROTECTION FILM (PPF) -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-2">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-layer-group text-xl text-[#EF3A37] transition-transform duration-500 group-hover:scale-105"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              Paint Protection Film (PPF)
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Self-healing clear bra installations protecting against stone chips, minor scuffs, and chemical stains.
+              Premium high-gloss or stealth satin finishes.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Coverage</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">10-Year
+              Warranty</span>
+          </div>
+        </div>
+
+        <!-- CARD 6: GENUINE OEM PARTS -->
+        <div
+          class="glass-card p-10 rounded-2xl group flex flex-col justify-between h-full relative hover:shadow-[0_20px_40px_rgba(239,58,55,0.06)] reveal reveal-delay-3">
+          <div>
+            <!-- Icon Wrapper -->
+            <div
+              class="w-14 h-14 rounded-full bg-[#EF3A37]/5 flex items-center justify-center mb-8 border border-[#EF3A37]/10 group-hover:bg-[#EF3A37]/15 group-hover:border-[#EF3A37]/30 transition-all duration-500">
+              <i
+                class="fa-solid fa-shield-halved text-xl text-[#EF3A37] transition-transform duration-500 group-hover:scale-105"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold uppercase tracking-tight mb-4 text-white">
+              Genuine OEM Parts
+            </h3>
+
+            <p class="text-white/60 leading-relaxed font-light text-sm">
+              Sourcing and installation of 100% original, factory-certified components. Restores vehicle integrity,
+              maintains brand warranty, and ensures perfect component compatibility.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-6 flex items-center justify-between">
+            <span class="text-[10px] uppercase tracking-[0.15em] text-white/40 font-semibold">Sourcing</span>
+            <span class="text-[10px] uppercase tracking-[0.15em] text-[#EF3A37] font-extrabold text-glow">100% Factory
+              Certified</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="py-28 overflow-hidden bg-[#0A0A0A] relative">
+
+    <div class="text-center mb-20 px-6 reveal">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="h-[1px] w-6 bg-[#EF3A37]"></span>
+        <p class="text-[#EF3A37] uppercase tracking-[0.3em] text-xs font-extrabold text-glow">
+          Supported European Brands
+        </p>
+        <span class="h-[1px] w-6 bg-[#EF3A37]"></span>
+      </div>
+
+      <h2 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white">
+        Luxury & Performance Specialists
+      </h2>
+    </div>
+
+    <div class="marquee reveal reveal-delay-2">
+      <div class="marquee-content">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg" class="invert-white"
+          alt="Audi Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" class="invert-white"
+          alt="Mercedes-Benz Logo" />
+        <img src="https://vl.imgix.net/img/ferrari-logo.png" alt="Ferrari Logo" />
+        <img src="https://vl.imgix.net/img/lamborghini-logo.png" alt="Lamborghini Logo" />
+        <img src="https://vl.imgix.net/img/jaguar-logo.png" alt="Jaguar Logo" />
+        <img src="https://vl.imgix.net/img/land-rover-logo.png" alt="Land Rover Logo" />
+        <img src="https://vl.imgix.net/img/porsche-logo.png" alt="Porsche Logo" />
+        <img src="https://vl.imgix.net/img/volkswagen-logo.png" alt="Volkswagen Logo" />
+
+        <!-- DUPLICATE FOR SEAMLESS LOOP -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg" class="invert-white"
+          alt="Audi Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" class="invert-white"
+          alt="Mercedes-Benz Logo" />
+        <img src="https://vl.imgix.net/img/ferrari-logo.png" alt="Ferrari Logo" />
+        <img src="https://vl.imgix.net/img/lamborghini-logo.png" alt="Lamborghini Logo" />
+        <img src="https://vl.imgix.net/img/jaguar-logo.png" alt="Jaguar Logo" />
+        <img src="https://vl.imgix.net/img/land-rover-logo.png" alt="Land Rover Logo" />
+        <img src="https://vl.imgix.net/img/porsche-logo.png" alt="Porsche Logo" />
+        <img src="https://vl.imgix.net/img/volkswagen-logo.png" alt="Volkswagen Logo" />
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-28 px-6 bg-gradient-to-b from-[#0E0E0E] to-[#0A0A0A] relative overflow-hidden">
+    <!-- Subtle background glowing red leak -->
+    <div
+      class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#EF3A37]/3 rounded-full blur-[130px] pointer-events-none">
+    </div>
+
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 relative items-stretch">
+
+      <!-- LEFT COLUMN: CONTACT DETAILS -->
+      <div class="reveal flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="h-[1px] w-6 bg-[#EF3A37]"></span>
+            <p class="text-[#EF3A37] uppercase tracking-[0.3em] text-xs font-extrabold text-glow">
+              Get In Touch
+            </p>
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white mb-6 leading-[1.1]">
+            Contact Our Concierge
+          </h2>
+
+          <p class="text-white/60 leading-relaxed font-light text-base mb-8">
+            To ensure the highest level of care for your European performance vehicle, we coordinate bookings directly
+            via Phone or WhatsApp, or you can visit our workshop location in Chennai.
+          </p>
+
+          <!-- Contact Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 md:mb-0">
+            <div
+              class="border border-white/5 bg-white/[0.02] p-5 rounded-2xl flex items-center gap-4 hover:border-white/10 transition-all duration-300">
+              <div
+                class="w-10 h-10 rounded-full bg-[#EF3A37]/5 flex items-center justify-center text-[#EF3A37] border border-[#EF3A37]/10">
+                <i class="fas fa-phone text-xs"></i>
+              </div>
+              <div>
+                <p class="text-[9px] uppercase tracking-[0.15em] text-white/40 font-bold">Call Us</p>
+                <a href="tel:+910000000000" class="text-sm font-semibold hover:text-[#EF3A37] transition">+91 00000
+                  00000</a>
+              </div>
+            </div>
+
+            <div
+              class="border border-white/5 bg-white/[0.02] p-5 rounded-2xl flex items-center gap-4 hover:border-white/10 transition-all duration-300">
+              <div
+                class="w-10 h-10 rounded-full bg-[#EF3A37]/5 flex items-center justify-center text-[#EF3A37] border border-[#EF3A37]/10">
+                <i class="fab fa-whatsapp text-sm"></i>
+              </div>
+              <div>
+                <p class="text-[9px] uppercase tracking-[0.15em] text-white/40 font-bold">WhatsApp</p>
+                <a href="https://wa.me/910000000000" target="_blank"
+                  class="text-sm font-semibold hover:text-[#EF3A37] transition">Chat Live</a>
+              </div>
+            </div>
+
+            <div
+              class="border border-white/5 bg-white/[0.02] p-5 rounded-2xl flex items-center gap-4 hover:border-white/10 transition-all duration-300">
+              <div
+                class="w-10 h-10 rounded-full bg-[#EF3A37]/5 flex items-center justify-center text-[#EF3A37] border border-[#EF3A37]/10">
+                <i class="fab fa-instagram text-sm"></i>
+              </div>
+              <div>
+                <p class="text-[9px] uppercase tracking-[0.15em] text-white/40 font-bold">Instagram</p>
+                <a href="#" class="text-sm font-semibold hover:text-[#EF3A37] transition">@drivetechevo</a>
+              </div>
+            </div>
+
+            <div
+              class="border border-white/5 bg-white/[0.02] p-5 rounded-2xl flex items-center gap-4 hover:border-white/10 transition-all duration-300">
+              <div
+                class="w-10 h-10 rounded-full bg-[#EF3A37]/5 flex items-center justify-center text-[#EF3A37] border border-[#EF3A37]/10">
+                <i class="fas fa-location-dot text-xs"></i>
+              </div>
+              <div>
+                <p class="text-[9px] uppercase tracking-[0.15em] text-white/40 font-bold">Location</p>
+                <span class="text-sm font-semibold text-white/80">Chennai, Tamil Nadu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: MAP -->
+      <div class="reveal reveal-delay-2 flex flex-col justify-stretch h-full">
+        <!-- MAP CONTAINER -->
+        <div
+          class="rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] h-full min-h-[320px] md:min-h-full">
+          <iframe class="dark-map w-full h-full min-h-[320px]"
+            src="https://maps.google.com/maps?q=Chennai&t=&z=13&ie=UTF8&iwloc=&output=embed" style="border:0;"
+            allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 py-12 px-6 bg-[#080808]">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+
+      <div class="text-center md:text-left">
+        <a href="#" class="font-orbitron text-xl font-extrabold tracking-tight">
+          DriveTech<span class="text-[#EF3A37] text-glow"> EVO</span>
+        </a>
+        <p class="text-[10px] text-white/30 uppercase tracking-[0.2em] mt-1.5">
+          © 2026 DriveTech EVO. All Rights Reserved.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-6 text-sm text-white/40">
+        <a href="#home" class="hover:text-[#EF3A37] transition duration-300">Home</a>
+        <a href="#about" class="hover:text-[#EF3A37] transition duration-300">About</a>
+        <a href="#services" class="hover:text-[#EF3A37] transition duration-300">Services</a>
+        <a href="#contact" class="hover:text-[#EF3A37] transition duration-300">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4 text-base">
+        <a href="#" target="_blank"
+          class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-[#EF3A37] hover:text-white transition duration-300">
+          <i class="fab fa-instagram text-sm"></i>
+        </a>
+        <a href="https://wa.me/910000000000" target="_blank"
+          class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-[#EF3A37] hover:text-white transition duration-300">
+          <i class="fab fa-whatsapp text-sm"></i>
+        </a>
+        <a href="tel:+910000000000"
+          class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-[#EF3A37] hover:text-white transition duration-300">
+          <i class="fas fa-phone text-xs"></i>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/910000000000" target="_blank" title="Chat with Concierge"
+    class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#1A1A1A] border border-[#25D366]/40 flex items-center justify-center text-[#25D366] text-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-50 hover:scale-110 transition duration-300 whatsapp-pulse hover:border-[#25D366] hover:text-white hover:bg-[#25D366] hover:shadow-[0_0_25px_rgba(37,211,102,0.4)]">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- SCROLL ANIMATION AND INTERSECTION OBSERVER SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Mobile Menu Toggle
+      const menuBtn = document.getElementById("mobile-menu-btn");
+      const menuCloseBtn = document.getElementById("mobile-menu-close");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+      const toggleMenu = () => {
+        mobileMenu.classList.toggle("translate-x-full");
+      };
+
+      if (menuBtn && mobileMenu && menuCloseBtn) {
+        menuBtn.addEventListener("click", toggleMenu);
+        menuCloseBtn.addEventListener("click", toggleMenu);
+        mobileNavLinks.forEach(link => {
+          link.addEventListener("click", toggleMenu);
+        });
+      }
+
+      const reveals = document.querySelectorAll(".reveal");
+
+      const revealOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: "0px 0px -40px 0px"
+      });
+
+      reveals.forEach(reveal => {
+        revealOnScroll.observe(reveal);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
